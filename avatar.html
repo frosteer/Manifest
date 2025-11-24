@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Timeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/breakdown.css">
+    <link rel="stylesheet" href="css/pomodoro.css">
+    <link rel="stylesheet" href="css/client.css">
+</head>
+
+<body>
+    <!-- Lock Screen Overlay -->
+    <div id="lock-screen">
+        <div class="lock-logo">S E E D</div>
+        <input type="password" id="lock-input" class="lock-input">
+    </div>
+
+    <!-- Panel Column (Left) -->
+    <div id="panel-column" class="panel-column">
+        <div class="panel-nav">
+            <button id="panel-btn-profile" class="panel-nav-btn" title="Profile (Lock)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-ultimate" class="panel-nav-btn active" title="Ultimate (Goals)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-client" class="panel-nav-btn" title="Clients">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="panel-content" class="panel-content">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
+
+    <!-- Breakdown Column (Right) -->
+    <div id="breakdown-column" class="breakdown-column">
+        <div class="breakdown-nav">
+            <button id="bd-btn-collapse-all" class="bd-nav-btn" title="Collapse/Expand All">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                </svg>
+            </button>
+            <button id="bd-btn-focus" class="bd-nav-btn" title="Focus Current Task">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 5v-2m0 18v-2m7-7h2m-18 0h2"></path>
+                </svg>
+            </button>
+            <button id="bd-btn-delete-completed" class="bd-nav-btn" title="Delete Completed Cards">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                    </path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="breakdown-content" class="breakdown-content"></div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <main id="main-content">
+        <header>
+            <!-- Header cleared as requested -->
+        </header>
+
+        <!-- Stats Section (formerly Pomodoro) -->
+        <section id="pomodoro-section" class="section-container" style="padding: 0; height: 180px;">
+            <div id="sales-monitor" class="sales-monitor-row"
+                style="border: none; padding: 0; background: transparent; height: 100%; width: 100%; flex-direction: column; align-items: center; justify-content: space-evenly; gap: 0;">
+                <div class="anp-stat"
+                    style="font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); margin: 0; line-height: 1;">
+                    Target ANP: <span style="color: var(--text-primary);">$100,000</span>
+                </div>
+                <div class="anp-stat"
+                    style="font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); margin: 0; line-height: 1;">
+                    Closed ANP: <span style="color: var(--text-primary);">$80,000</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sales Table Section -->
+        <section id="sales-table-section" class="section-container" style="padding: 20px; min-height: auto;">
+            <div class="sales-table-container" style="overflow-x: auto;">
+                <table class="sales-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                            <th style="text-align: left; padding: 8px;">Client Name</th>
+                            <th style="text-align: right; padding: 8px;">ANP</th>
+                            <th style="text-align: right; padding: 8px;">Jan</th>
+                            <th style="text-align: right; padding: 8px;">Feb</th>
+                            <th style="text-align: right; padding: 8px;">Mar</th>
+                            <th style="text-align: right; padding: 8px;">Apr</th>
+                            <th style="text-align: right; padding: 8px;">May</th>
+                            <th style="text-align: right; padding: 8px;">Jun</th>
+                            <th style="text-align: right; padding: 8px;">Jul</th>
+                            <th style="text-align: right; padding: 8px;">Aug</th>
+                            <th style="text-align: right; padding: 8px;">Sep</th>
+                            <th style="text-align: right; padding: 8px;">Oct</th>
+                            <th style="text-align: right; padding: 8px;">Nov</th>
+                            <th style="text-align: right; padding: 8px;">Dec</th>
+                            <th style="text-align: right; padding: 8px;">Forward</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <!-- Rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Action Section (Vertical Layout) -->
+        <section id="action-section" class="section-container"
+            style="margin-top: 20px; display: flex; flex-direction: column; gap: 20px; padding: 20px;">
+
+            <!-- Today Action -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="action-header"
+                    style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                    Today Action</div>
+                <div id="today-action-container" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Due Action -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="action-header"
+                    style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                    Due Action</div>
+                <div id="due-action-container" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline-section" class="app-container">
+            <div class="time-column" id="time-column">
+                <!-- Time labels generated by JS -->
+            </div>
+            <div class="timeline-column" id="timeline-column">
+                <div id="current-time-line" class="current-time-line"></div>
+                <div id="grid-background" class="grid-background">
+                    <!-- Grid lines generated by JS -->
+                </div>
+                <div id="tasks-container" class="tasks-container">
+                    <!-- Tasks injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes-section" class="section-container">
+            <div class="notes-container">
+                <h3 class="notes-header">Notes</h3>
+                <textarea id="notes-input" class="notes-input" placeholder="Write your notes here..."></textarea>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pomodoro Settings Modal -->
+    <div id="pomo-settings-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 20px; color: var(--text-primary);">Timer Settings</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; color: var(--text-secondary); margin-bottom: 8px;">Work Duration
+                    (minutes)</label>
+                <input type="number" id="pomo-setting-work" value="25" min="1" max="60"
+                    style="width: 100%; padding: 8px; background: #333; border: 1px solid #444; color: white; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; color: var(--text-secondary); margin-bottom: 8px;">Break Duration
+                    (minutes)</label>
+                <input type="number" id="pomo-setting-break" value="5" min="1" max="60"
+                    style="width: 100%; padding: 8px; background: #333; border: 1px solid #444; color: white; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="pomo-setting-auto" checked
+                    style="width: 16px; height: 16px; cursor: pointer;">
+                <label for="pomo-setting-auto" style="color: var(--text-secondary); cursor: pointer;">Auto-start next
+                    timer</label>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="pomo-settings-cancel">Cancel</button>
+                <button class="modal-btn confirm" id="pomo-settings-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="modal-cancel">Cancel</button>
+                <button class="modal-btn confirm" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Modules (Order Matters) -->
+    <script src="js/constants.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/modal.js"></script>
+    <!-- nav.js removed -->
+    <!-- pomodoro.js removed -->
+    <script src="js/timeline.js"></script>
+    <script src="js/breakdown.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/panel.js"></script>
+    <script src="js/ultimate.js"></script>
+    <script src="js/client.js"></script>
+    <script src="js/perfectday.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

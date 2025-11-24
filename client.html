@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management - Minimal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="style.css"> <!-- Base styles -->
+    <link rel="stylesheet" href="css/panel.css"> <!-- Panel styles -->
+    <link rel="stylesheet" href="css/breakdown.css"> <!-- Breakdown styles -->
+    <link rel="stylesheet" href="css/client.css"> <!-- Client specific styles -->
+</head>
+
+<body>
+    <!-- Panel Column (Left) -->
+    <div id="panel-column" class="panel-column">
+        <div class="panel-nav">
+            <button id="panel-btn-profile" class="panel-nav-btn" title="Profile (Lock)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-ultimate" class="panel-nav-btn" title="Back to Timeline">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-client" class="panel-nav-btn active" title="Clients">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Create Client Section -->
+        <div class="create-client-section">
+            <button class="btn-add-client"
+                onclick="document.getElementById('create-client-form').style.display = 'flex'">+ Add Client</button>
+
+            <div id="create-client-form" class="create-client-form" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" id="input-name" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Stage</label>
+                    <select id="input-stage" class="form-select">
+                        <option value="Lead">Lead</option>
+                        <option value="Open">Open</option>
+                        <option value="Present">Present</option>
+                        <option value="Close">Close</option>
+                        <option value="Follow Up">Follow Up</option>
+                        <option value="Client">Client</option>
+                        <option value="KIV">KIV</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Product Recommended</label>
+                    <input type="text" id="input-product" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Potential ANP</label>
+                    <input type="number" id="input-anp" class="form-input" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Action Date</label>
+                    <input type="date" id="input-date" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact</label>
+                    <input type="text" id="input-contact" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea id="input-notes" class="form-textarea"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button id="btn-cancel-client" class="btn-cancel">Cancel</button>
+                    <button id="btn-save-client" class="btn-save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breakdown Column (Right) -> Client Profile Section -->
+    <div id="breakdown-column" class="breakdown-column">
+        <div class="breakdown-nav">
+            <!-- Placeholder for alignment with index.html -->
+        </div>
+        <div id="client-profile-section" class="client-profile-section">
+            <div style="color: var(--text-secondary); text-align: center; margin-top: 50px;">
+                Select a client to view details
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper (Middle) -->
+    <main id="main-content">
+        <header>
+            <div class="nav-center">Client Management</div>
+        </header>
+
+        <!-- Client Management Section -->
+        <section class="client-management-section app-container">
+
+            <!-- Row 1: Sales Monitor -->
+            <div id="sales-monitor" class="sales-monitor-row">
+                <div class="sales-card">
+                    <span class="sales-label">Target ANP</span>
+                    <span class="sales-value" id="display-target-anp">$0</span>
+                </div>
+                <div class="sales-card">
+                    <span class="sales-label">Closed ANP</span>
+                    <span class="sales-value" id="display-closed-anp">$0</span>
+                </div>
+                <button id="btn-edit-target" class="btn-edit-sales" title="Edit Target">✎</button>
+            </div>
+
+            <!-- Row 2: Sales Table -->
+            <div class="sales-table-container">
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th class="col-money">ANP</th>
+                            <th class="col-money">Jan</th>
+                            <th class="col-money">Feb</th>
+                            <th class="col-money">Mar</th>
+                            <th class="col-money">Apr</th>
+                            <th class="col-money">May</th>
+                            <th class="col-money">Jun</th>
+                            <th class="col-money">Jul</th>
+                            <th class="col-money">Aug</th>
+                            <th class="col-money">Sep</th>
+                            <th class="col-money">Oct</th>
+                            <th class="col-money">Nov</th>
+                            <th class="col-money">Dec</th>
+                            <th class="col-money">Forward</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <!-- Rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Row 3: Actions -->
+            <div class="action-row">
+                <div class="action-group">
+                    <div class="section-header">Today Action</div>
+                    <div id="today-action-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                </div>
+                <div class="action-group">
+                    <div class="section-header">Due Action</div>
+                    <div id="due-action-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                </div>
+            </div>
+
+            <!-- Row 4: Sorting System -->
+            <div class="sorting-row" id="sorting-container">
+                <!-- Columns injected by JS -->
+            </div>
+
+        </section>
+    </main>
+
+    <script src="js/client.js"></script>
+</body>
+
+</html>

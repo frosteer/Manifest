@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Timeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/breakdown.css">
+    <link rel="stylesheet" href="css/pomodoro.css">
+    <link rel="stylesheet" href="css/countdown.css">
+</head>
+
+<body>
+    <!-- Lock Screen Overlay -->
+    <div id="lock-screen">
+        <div class="lock-logo">M</div>
+        <input type="password" id="lock-input" class="lock-input">
+    </div>
+
+    <!-- Panel Column (Left) -->
+    <div id="panel-column" class="panel-column">
+        <div class="panel-nav">
+            <button id="panel-btn-profile" class="panel-nav-btn" title="Profile (Lock)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-ultimate" class="panel-nav-btn active" title="Ultimate (Goals)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+            </button>
+            <button id="panel-btn-countdown" class="panel-nav-btn" title="Countdown">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div id="panel-content" class="panel-content">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
+
+    <!-- Breakdown Column (Right) -->
+    <div id="breakdown-column" class="breakdown-column">
+        <div class="breakdown-nav">
+            <button id="bd-btn-collapse-all" class="bd-nav-btn" title="Collapse/Expand All">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                </svg>
+            </button>
+            <button id="bd-btn-focus" class="bd-nav-btn" title="Focus Current Task">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 5v-2m0 18v-2m7-7h2m-18 0h2"></path>
+                </svg>
+            </button>
+            <button id="bd-btn-delete-completed" class="bd-nav-btn" title="Delete Completed Cards">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                    </path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="breakdown-content" class="breakdown-content"></div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <main id="main-content">
+        <header>
+            <div class="nav-left">
+                <button class="nav-btn icon-btn" id="prev-day">‹</button>
+                <button class="nav-btn text-btn" id="today-btn">Today</button>
+                <button class="nav-btn icon-btn" id="next-day">›</button>
+            </div>
+            <div class="nav-center">
+                <div id="current-date-display"></div>
+            </div>
+            <div class="nav-right">
+                <div class="dropdown-container">
+                    <button class="nav-btn text-btn" id="perfect-day-btn">
+                        <span class="icon">✨</span> Perfect Day
+                    </button>
+                    <div class="dropdown-menu" id="perfect-day-menu">
+                        <div class="dropdown-item" id="pd-save">Save "Perfect Day"</div>
+                        <div class="dropdown-item" id="pd-load">Load "Perfect Day"</div>
+                        <div class="dropdown-item danger" id="pd-delete">Delete "Perfect Day"</div>
+                    </div>
+                </div>
+                <div class="dropdown-container">
+                    <button class="nav-btn icon-btn" id="settings-btn">⚙️</button>
+                    <div class="dropdown-menu" id="settings-menu">
+                        <div class="dropdown-item danger" id="clear-day">Clear all tasks for today</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item color-picker-row">
+                            <input type="color" id="color-picker-grey" value="#424242" title="Grey">
+                            <input type="color" id="color-picker-orange" value="#d87d4a" title="Orange">
+                            <input type="color" id="color-picker-green" value="#50c878" title="Green">
+                            <input type="color" id="color-picker-blue" value="#4a90e2" title="Blue">
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" id="export-data">Export Data (Backup)</div>
+                        <div class="dropdown-item" id="import-data">Import Data (Restore)</div>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Pomodoro Section -->
+        <section id="pomodoro-section" class="section-container">
+            <div class="pomodoro-container">
+                <div class="pomodoro-tabs">
+                    <button class="tab-btn active" id="pomo-tab-standard">STANDARD</button>
+                    <button class="tab-btn" id="pomo-tab-smart">SMART</button>
+                </div>
+
+                <div class="timer-display-container">
+                    <div class="timer-time" id="timer-display">25m 00s</div>
+                </div>
+
+                <div class="timer-bottom-wrapper">
+                    <div class="timer-task" id="timer-task-title"></div>
+
+                    <div class="timer-controls" id="timer-controls">
+                        <button class="control-icon-btn" id="pomo-btn-toggle" title="Start/Pause">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </button>
+                        <button class="control-icon-btn" id="pomo-btn-reset" title="Reset">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                        </button>
+                        <button class="control-icon-btn" id="pomo-btn-switch" title="Switch Work/Break">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+                                <path d="M16 21h5v-5"></path>
+                            </svg>
+                        </button>
+                        <button class="control-icon-btn" id="pomo-btn-settings" title="Settings">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline-section" class="app-container">
+            <div class="time-column" id="time-column">
+                <!-- Time labels generated by JS -->
+            </div>
+            <div class="timeline-column" id="timeline-column">
+                <div id="current-time-line" class="current-time-line"></div>
+                <div id="grid-background" class="grid-background">
+                    <!-- Grid lines generated by JS -->
+                </div>
+                <div id="tasks-container" class="tasks-container">
+                    <!-- Tasks injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes-section" class="section-container">
+            <div class="notes-container">
+                <h3 class="notes-header">Notes</h3>
+                <textarea id="notes-input" class="notes-input" placeholder="Write your notes here..."></textarea>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pomodoro Settings Modal -->
+    <div id="pomo-settings-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 20px; color: var(--text-primary);">Timer Settings</h3>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; color: var(--text-secondary); margin-bottom: 8px;">Work Duration
+                    (minutes)</label>
+                <input type="number" id="pomo-setting-work" value="25" min="1" max="60"
+                    style="width: 100%; padding: 8px; background: #333; border: 1px solid #444; color: white; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; color: var(--text-secondary); margin-bottom: 8px;">Break Duration
+                    (minutes)</label>
+                <input type="number" id="pomo-setting-break" value="5" min="1" max="60"
+                    style="width: 100%; padding: 8px; background: #333; border: 1px solid #444; color: white; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="pomo-setting-auto" checked
+                    style="width: 16px; height: 16px; cursor: pointer;">
+                <label for="pomo-setting-auto" style="color: var(--text-secondary); cursor: pointer;">Auto-start next
+                    timer</label>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="pomo-settings-cancel">Cancel</button>
+                <button class="modal-btn confirm" id="pomo-settings-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="modal-cancel">Cancel</button>
+                <button class="modal-btn confirm" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Countdown Card -->
+    <div id="countdown-card">
+        <div class="countdown-header">
+            <button id="countdown-settings-btn" class="countdown-settings-btn" title="Settings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+            </button>
+            <div id="countdown-settings-menu" class="countdown-settings-menu">
+                <label class="countdown-option">
+                    <input type="checkbox" id="cd-opt-hours" checked> Hours
+                </label>
+                <label class="countdown-option">
+                    <input type="checkbox" id="cd-opt-minutes" checked> Minutes
+                </label>
+                <label class="countdown-option">
+                    <input type="checkbox" id="cd-opt-seconds" checked> Seconds
+                </label>
+            </div>
+        </div>
+        <div id="countdown-display" class="countdown-display">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+
+    <!-- JS Modules (Order Matters) -->
+    <script src="js/constants.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pomodoro.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/breakdown.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/panel.js"></script>
+    <script src="js/ultimate.js"></script>
+    <script src="js/client.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/perfectday.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
