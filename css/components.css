@@ -1,0 +1,211 @@
+/* Shared Components */
+
+/* --- APP CARD --- */
+.app-card {
+    border-radius: 0;
+    padding: 10px 15px;
+    margin-bottom: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+}
+
+/* Color Variants */
+.app-card.color-grey {
+    background-color: var(--accent-grey);
+}
+
+.app-card.color-orange {
+    background-color: var(--accent-orange);
+}
+
+.app-card.color-green {
+    background-color: var(--accent-green);
+}
+
+.app-card.color-blue {
+    background-color: var(--accent-blue);
+}
+
+/* Card Header */
+.app-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.app-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.app-card-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.app-card-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Card Controls */
+.app-card-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.app-card:hover .app-card-controls {
+    opacity: 1;
+}
+
+/* Generic Button (Icon/Text) */
+.app-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.app-btn.delete:hover {
+    color: #ffcccc;
+}
+
+/* Card Body */
+.app-card-body {
+    margin-top: 10px;
+}
+
+.app-card.collapsed .app-card-body,
+.app-card.collapsed .app-add-btn {
+    display: none;
+}
+
+/* --- LIST ITEMS (Milestones/Subtasks) --- */
+.app-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 6px;
+}
+
+.app-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* --- CHECKBOX --- */
+.app-checkbox {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.app-checkbox:checked {
+    background-color: white;
+    border-color: white;
+}
+
+.app-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: var(--accent-grey);
+    font-size: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+/* Checkmark colors based on card background */
+.app-card.color-orange .app-checkbox:checked::after {
+    color: var(--accent-orange);
+}
+
+.app-card.color-green .app-checkbox:checked::after {
+    color: var(--accent-green);
+}
+
+.app-card.color-blue .app-checkbox:checked::after {
+    color: var(--accent-blue);
+}
+
+/* --- INPUTS (Transparent) --- */
+.app-input-transparent {
+    flex: 1;
+    background: none;
+    border: none;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    resize: none;
+    overflow: hidden;
+    min-height: 20px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+}
+
+.app-input-transparent:focus {
+    outline: none;
+}
+
+.app-input-transparent.completed {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+.app-input-transparent::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- ADD BUTTON (Dashed) --- */
+.app-add-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px;
+    background: none;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.app-add-btn:hover {
+    border-color: white;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,461 @@
+/* Time Column */
+.time-column {
+    width: 80px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    padding-top: 20px;
+}
+
+.time-label {
+    height: var(--time-slot-height);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-right: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.time-label span {
+    transform: translateY(-50%);
+    background-color: var(--bg-color);
+}
+
+/* Timeline Column */
+.timeline-column {
+    flex: 1;
+    position: relative;
+    min-width: 600px;
+    padding-top: 20px;
+    /* border-right removed to avoid double line */
+    background-color: var(--bg-color);
+}
+
+/* Grid Lines */
+.grid-background {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 20px);
+    pointer-events: none;
+}
+
+.grid-line-hour {
+    height: var(--time-slot-height);
+    border-top: 1px solid var(--line-hour);
+    box-sizing: border-box;
+}
+
+.grid-line-half {
+    height: 50%;
+    border-bottom: 1px dashed var(--line-half);
+}
+
+/* Current Time Line */
+.current-time-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff5252;
+    z-index: 4;
+    pointer-events: none;
+    display: none;
+}
+
+.current-time-line::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff5252;
+    border-radius: 50%;
+}
+
+/* Tasks */
+.tasks-container {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 20px);
+    z-index: 2;
+}
+
+.task-card {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    background-color: var(--accent-grey);
+    border-radius: 4px;
+    padding: 0 12px 0 18px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-card:hover {
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.task-card.color-grey {
+    background-color: var(--accent-grey);
+}
+
+.task-card.color-orange {
+    background-color: var(--accent-orange);
+}
+
+.task-card.color-blue {
+    background-color: var(--accent-blue);
+}
+
+.task-card.color-green {
+    background-color: var(--accent-green);
+}
+
+.task-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.task-content>* {
+    pointer-events: auto;
+}
+
+.task-time {
+    font-weight: 600;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.task-title-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    outline: none;
+    cursor: text;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+/* Drag Handle */
+.drag-handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    user-select: none;
+}
+
+.drag-handle:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Resize Handles */
+.resize-handle {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    cursor: ns-resize;
+    z-index: 20;
+    transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.resize-top {
+    top: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.resize-bottom {
+    bottom: 0;
+    justify-content: flex-end;
+    padding-right: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.time-label span {
+    transform: translateY(-50%);
+    background-color: var(--bg-color);
+}
+
+/* Timeline Column */
+.timeline-column {
+    flex: 1;
+    position: relative;
+    min-width: 600px;
+    padding-top: 20px;
+    /* border-right removed to avoid double line */
+    background-color: var(--bg-color);
+}
+
+/* Grid Lines */
+.grid-background {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 20px);
+    pointer-events: none;
+}
+
+.grid-line-hour {
+    height: var(--time-slot-height);
+    border-top: 1px solid var(--line-hour);
+    box-sizing: border-box;
+}
+
+.grid-line-half {
+    height: 50%;
+    border-bottom: 1px dashed var(--line-half);
+}
+
+/* Current Time Line */
+.current-time-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff5252;
+    z-index: 4;
+    pointer-events: none;
+    display: none;
+}
+
+.current-time-line::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff5252;
+    border-radius: 50%;
+}
+
+/* Tasks */
+.tasks-container {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 20px);
+    z-index: 2;
+}
+
+.task-card {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    background-color: var(--accent-grey);
+    border-radius: 4px;
+    padding: 0 12px 0 18px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-card:hover {
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.task-card.color-grey {
+    background-color: var(--accent-grey);
+}
+
+.task-card.color-orange {
+    background-color: var(--accent-orange);
+}
+
+.task-card.color-blue {
+    background-color: var(--accent-blue);
+}
+
+.task-card.color-green {
+    background-color: var(--accent-green);
+}
+
+.task-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.task-content>* {
+    pointer-events: auto;
+}
+
+.task-time {
+    font-weight: 600;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.task-title-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    outline: none;
+    cursor: text;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+/* Drag Handle */
+.drag-handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    user-select: none;
+}
+
+.drag-handle:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Resize Handles */
+.resize-handle {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    cursor: ns-resize;
+    z-index: 20;
+    transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.resize-top {
+    top: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.resize-bottom {
+    bottom: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Subtask Indicator (Right Border) */
+.task-right-border {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 40;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.task-right-border:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Task Controls */
+.task-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 10px;
+    height: 100%;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.task-card:hover .task-controls {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.control-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.control-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}

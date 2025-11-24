@@ -1,0 +1,44 @@
+#notes-section {
+    border-top: 1px solid var(--border-color);
+    padding: 0;
+    padding-bottom: 20px;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-header {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--surface-color);
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 0 15px 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.notes-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: none;
+    overflow: hidden;
+    padding: 0 25px;
+    /* Add comfortable side padding */
+    outline: none;
+    min-height: calc(1.6em * 10);
+    /* 10 lines */
+    box-sizing: border-box;
+}
+
+.notes-input:focus {
+    color: var(--text-primary);
+}

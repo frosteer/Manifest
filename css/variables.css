@@ -1,0 +1,14 @@
+:root {
+    --bg-color: #121212;
+    --surface-color: #1e1e1e;
+    --border-color: #333;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-grey: #424242;
+    --accent-orange: #d87d4a;
+    --accent-blue: #4a90e2;
+    --accent-green: #50c878;
+    --line-hour: #444;
+    --line-half: #2a2a2a;
+    --time-slot-height: 100px;
+}
