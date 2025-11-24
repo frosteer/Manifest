@@ -76,3 +76,13 @@ Step 7: Allowance
 
 Detach from the outcome. You have to be intense in your desire without any expectation that it manifests.
 
+
+----------------------------------------------------------------------
+
+Dark Theme Color Code:
+
+Grey: #272525
+Orange: #744225
+Green: #00241d
+Blue: #08203a
+
