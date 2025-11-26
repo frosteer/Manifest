@@ -258,12 +258,13 @@ const Breakdown = {
     },
 
     deleteBreakdown(taskId) {
-        Modal.show("Remove breakdown for this task?", () => {
+        Modal.show("Delete Sub-task card", () => {
             const key = Utils.getDateKey(State.currentDate);
             const tasks = State.getTasksForDate(key);
             const task = tasks.find(t => t.id === taskId);
             if (task) {
                 task.hasBreakdown = false;
+                task.subtasks = [];
                 State.saveTasksForDate(key, tasks);
                 this.render();
                 if (typeof Timeline !== 'undefined') Timeline.renderTasks();
